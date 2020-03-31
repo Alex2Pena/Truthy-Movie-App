@@ -27,9 +27,19 @@ app.use(express.static('./public')); // Serves our files from public
 app.get('/', (request,response) => {
   response.render('./index');
 });
+
+app.get('/about', (request,response) => {
+  response.render('./about');
+});
+
+app.get('/favorites', (request,response) => {
+  response.render('./favorites');
+});
+
 app.get('/search', (request, response)=>{
   console.log(request.query.search)
 })
+
 
 
 
