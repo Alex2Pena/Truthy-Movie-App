@@ -28,7 +28,7 @@ app.get('/', (request,response) => {
   response.render('./index');
 });
 app.get('/search', (request, response)=>{
-  
+  console.log(request.query.search)
 })
 
 
