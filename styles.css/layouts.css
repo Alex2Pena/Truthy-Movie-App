@@ -1,0 +1,13 @@
+  .blogPost {
+    width: 30%;
+    text-align: center;
+    margin-left: 50%;
+    margin-right: 50%;
+  }
+  
+  img {
+    border: 2px solid white;
+    padding:0px;
+    width: 30%;
+  }
+  
