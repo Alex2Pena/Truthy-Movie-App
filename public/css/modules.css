@@ -23,8 +23,6 @@
     text-decoration: none;
     padding:10px;
   }
-
-  @import "compass/css3";
  
   .wrapimg {
     background: #000;
