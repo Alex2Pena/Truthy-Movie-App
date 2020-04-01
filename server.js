@@ -34,7 +34,6 @@ app.get('/search', handleSearch);
 const request = require('request');
 
 var videoArray = [];
-console.log('videoArray is', videoArray);
 
 function handleSearch (req, res){
   videoArray = [];
@@ -68,8 +67,30 @@ function handleSearch (req, res){
 function Video(obj){
   this.name = obj.name;
   this.picture = obj.picture;
-  this.locations = obj.locations[0].display_name
-  this.providerIcon = obj.locations[0].icon;
+  // this.locations = obj.locations[0].display_name
+  
+  // this.locations = function abc = (obj.locations){
+  //     for (let i =0; i < obj.locations.length; i++){
+  //         let abc = [];
+  //         abc.push(arr[i].display_name)
+  //         console.log(abc)
+  //       }
+  //       return abc
+  //     }
+ 
+  this.locations = obj.locations.map((value) => {
+      return value.display_name;
+  })
+  
+  
+this.providerIcon = obj.locations.map((value) => {
+    // console.log("inside .map", value.icon);
+    return value.icon;
+})
+console.log('this.providerIcon', this.providerIcon);
+  
+  
+  // this.providerIcon = obj.locations[0].icon;
 this.urlProvider = obj.locations[0].url
 this.favorite = false;
 videoArray.push(this);
@@ -77,7 +98,58 @@ videoArray.push(this);
 
 
 
-// app.post('/search', (request, response) => {//recives searches from front end
+
+
+
+
+  locations:
+  [ { icon:
+       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/GooglePlayIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
+      display_name: 'Google Play',
+      name: 'GooglePlayIVAUS',
+      id: '5d8260b128fbcd0052aed197',
+      url:
+       'https://play.google.com/store/movies/details/Rambo_First_Blood_II?gl=US&hl=en&id=Vt4PyVlN5Ys' },
+    { icon:
+       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/iTunesIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
+      display_name: 'iTunes',
+      name: 'iTunesIVAUS',
+      id: '5d80a9a5d51bef861d3740d3',
+      url:
+       'https://itunes.apple.com/us/movie/rambo-first-blood-part-ii/id552398029' },
+    { icon:
+       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/AmazonInstantVideoIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
+      display_name: 'Amazon Instant Video',
+      name: 'AmazonInstantVideoIVAUS',
+      id: '5d82609332ac2f0051962fe6',
+      url:
+       'https://www.amazon.com/gp/product/B07XJ25DPT?creativeASIN=B07XJ25DPT&ie=UTF8&linkCode=xm2&tag=utellycom00-21' } ]
+    
+    
+      //  function xyz(obj.locations) {
+      //   for (let i =0; i < obj.locations.length; i++){
+      //       let abc = [];
+      //       abc.push(arr[i].display_name)
+      //       console.log(abc)
+      //     }
+      //     return abc
+      //   }
+    //  this.locations = xyz(obj.locations)
+    
+    
+    
+  
+// Turn everything on
+//client.connect()
+//     .then(() => {
+  app.listen(PORT, () => {
+    console.log(`listening on ${PORT}`)
+  });
+
+
+
+
+  // app.post('/search', (request, response) => {//recives searches from front end
 //   console.log(request.body);
 //   let thingTheyAreSearchingFor = request.body;
 
@@ -89,90 +161,3 @@ videoArray.push(this);
   //     console.log(title)
   //     return thingTheyAreSearchingFor;
   // });
-  // function Video(obj){
-    //   this.name = obj.results[0].name;
-    //   this.picture = obj.results[0].picture;
-//   this.locations = obj.results.locations[0].display_name;
-//   this.providerIcon = obj.results.locations[0].icon;
-//   this.urlProvider = obj.results.locations[0].url
-//   this.favorite = false;
-//   // videoArray.push(this);
-//   // providerArray.push(this)
-//   // console.log('Iam the name:', obj.name)
-//   // console.log('I am the locations:', obj.locations)
-// }
-
-// app.get('/search', (request, response) => {
-//     request.query.search;
-//     let xyz = request.query.search
-  //   let dummyData = require('./test');
-  //   let testResults = JSON.parse(dummyData);
-  //   console.log(testResults)
-  
-  //   //console.log(dummyData[0].results[0]);
-  //   let newVideoResult = testResults.map(result => {
-    //     return new Video(result)
-    
-    //   })
-    //   response.render('./index.ejs', {bananas: newVideoResult})
-    //   console.log(newVideoResult)
-    // response.render('./pages/books/show.ejs',{myBook : updResults.rows})
-    
-    
-    
-    
-    
-    
-    // locations:
-    // [ { icon:
-    //      'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/GooglePlayIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-    //     display_name: 'Google Play',
-    //     name: 'GooglePlayIVAUS',
-    //     id: '5d8260b128fbcd0052aed197',
-    //     url:
-    //      'https://play.google.com/store/movies/details/Rambo_First_Blood_II?gl=US&hl=en&id=Vt4PyVlN5Ys' },
-    //   { icon:
-    //      'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/iTunesIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-    //     display_name: 'iTunes',
-    //     name: 'iTunesIVAUS',
-    //     id: '5d80a9a5d51bef861d3740d3',
-    //     url:
-    //      'https://itunes.apple.com/us/movie/rambo-first-blood-part-ii/id552398029' },
-    //   { icon:
-    //      'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/AmazonInstantVideoIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-    //     display_name: 'Amazon Instant Video',
-    //     name: 'AmazonInstantVideoIVAUS',
-    //     id: '5d82609332ac2f0051962fe6',
-    //     url:
-    //      'https://www.amazon.com/gp/product/B07XJ25DPT?creativeASIN=B07XJ25DPT&ie=UTF8&linkCode=xm2&tag=utellycom00-21' } ]
-    
-    
-
-  // Leave this code in here. Chance example 3/31
-  // function xyz(obj.locations) {
-    //   for (let i =0; i < obj.locations.length; i++){
-      //     let abc = [];
-      //     abc.push(arr[i].display_name)
-      //     console.log(abc)
-      //   }
-      //   return abc
-      // }
-      // Leave this code in here. Chance example 3/31
-// this.locations = xyz(obj.locations)
-
-
-// Turn everything on
-//client.connect()
-//     .then(() => {
-  app.listen(PORT, () => {
-    console.log(`listening on ${PORT}`)
-  });
-
-
-            // app.get('/search', (request, response)=>{
-            //   //console.log(request.query.search);
-            //   let thingTheyAreSearchingFor = request.query.search;
-            //   return thingTheyAreSearchingFor;
-            // });
-  // });
-  
