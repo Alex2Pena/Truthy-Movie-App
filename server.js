@@ -39,9 +39,9 @@ app.get('/favorites', (request,response) => {
   response.render('./favorites');
 });
 
-app.get('/search', (request, response)=>{
-  console.log(request.query.search)
-})
+// app.get('/search', (request, response)=>{
+//   console.log(request.query.search)
+// })
 
 
 
@@ -111,41 +111,6 @@ const options = {
 //   console.log(newVideoResult)
   // response.render('./pages/books/show.ejs',{myBook : updResults.rows})
 
-  ////TESTING GROUND
-    // dummyData[0].results.forEach(result=>{
-    //   new Video(result);
-    //   console.log('I AM THE RESULT OBJECT', result)
-    //   result.locations.forEach(provider=>{
-    //    console.log('I AM THE PROVIDER OBJECT', provider)
-        
-    //   })
-      //console.log('I am the providerArray', providerArray)
-      //console.log(videoArray);
-      // console.log('newSearch', newSearch)
-      // let newProvider = new Video(result.locations);
-    // });
-    //console.log(videoArray)
-    //console.log('I am all results', allResults.locations);
-// });
-//// TESTING GROUND
-  // })
-  // let i = 0
-  // dummyData[i].results.locations.forEach((xyz) => {
-  //   console.log(xyz)
-  //   //obj.locations.forEach((provider) => {
-  //     //console.log(provider)
-
-  //   })
-  // })
-  
-
-
-  // dummyData[0].results.forEach(title => {
-  //     videoArray.push(new Video(title));
-  // });
-  // //response.status(200).json(videoArray);
-  // console.log(videoArray);
-// });
 
 
 
@@ -243,7 +208,7 @@ function Video(obj){
 
 
 // Turn everything on
-// client.connect()
+//client.connect()
 //     .then(() => {
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`)
