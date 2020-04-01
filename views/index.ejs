@@ -30,7 +30,12 @@
           <img src="<%= result.picture %>" />
           <li><%= result.name %></li>
           <li><%= result.locations %></li>
-          <img src= "<%= result.providerIcon %>" />
+          <% bananas.forEach(icon => { %>
+            <!-- <%= icon.providerIcon %> -->
+            <li><img src= "<%= icon.providerIcon %>" /></li>
+            <% }) %>
+        
+
           <input type="hidden" name="name" value="<%= result.name %>" />
           <!-- <input type="hidden" name="thumbnail_url" value="<%= result.thumbnail_url %>" /> -->
       <button>Add to my favorites</button>
