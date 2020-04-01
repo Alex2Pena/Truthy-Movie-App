@@ -24,7 +24,7 @@ app.use(express.urlencoded({extended:true})); // Body parser
 //const client = new pg.Client(process.env.DATABASE_URL);
 //client.on('error', err => console.error(err));
 
-app.get('/', (request,response) => {response.render('./index');});
+app.get('/', handleSearch);
 app.get('/about', (request,response) => {response.render('./about');});
 app.get('/favorites', (request,response) => {response.render('./favorites');});
 app.get('/search', handleSearch);
@@ -37,6 +37,7 @@ var videoArray = [];
 console.log('videoArray is', videoArray);
 
 function handleSearch (req, res){
+  videoArray = [];
    let xyz = req.query.search
   console.log('xyz is', xyz);
   
@@ -63,14 +64,6 @@ function handleSearch (req, res){
   }
   
 )};
-
-
-
-
-
-
-
-
 
 function Video(obj){
   this.name = obj.name;
