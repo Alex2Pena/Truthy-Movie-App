@@ -9,40 +9,6 @@
     <link rel="stylesheet" href="./css/layouts.css">
     <link rel="stylesheet" href="./css/modules.css">
 
- <script>
-
-$(function() {
-	
-	const btn = $(".button-wrapper");
-	const input = $("input[type=text]");
-		
-	input.focus(function() {
-		btn.removeClass("fadeOutLeft");
-		btn.addClass("animated fadeInDown");
-		btn.fadeIn();
-	});
-	
-	input.focusout(function() {
-		btn.removeClass("fadeInDown");
-		btn.addClass("fadeOutLeft");
-		btn.fadeOut(800);
-	});
-  
-  var bstr = $(".backstretch");
-	
-	$("#switch").on('click', function() {		
-		bstr.fadeToggle(600);
-    
-	});
-  
-  var wrap = $(".wrapimg");
-
-	$("#switch2").on('click', function() {		
-		wrap.fadeToggle(600);
-	});
-}); 
-
-    </script>
 </head>
 <body>
 
@@ -50,9 +16,9 @@ $(function() {
    
    <div class="navBar">
    <ul>
-     <li><a href="index.html">Home</a></li>
-     <li><a href="about.html">About Us</a></li>
-     <li><a href="favorites.html">Favorites</a></li>
+    <li><a href="/">Home</a></li>
+    <li><a href="about">About Us</a></li>
+    <li><a href="favorites">Favorites</a></li>
    </ul>
  </div>
 
@@ -62,34 +28,31 @@ $(function() {
 </form>
 
 
-    <div class="movieOne">
+    <div class="movieResult">
        <h2>Movie One Title</h2>
       <img src="http://images.hellogiggles.com/uploads/2015/02/20/picture-of-pusheen-cat-unicorn-photo.gif">
-       <p>Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text.Blog post text. Blog post text. Blog post text. Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text. </p>
+       <p>Blog post text. Blog post text.Blog post text. Blog post text. </p>
+       <br>
+      <button type="submit" class="clsButton">Add To Favorites</button>
     </div>
    
-   <div class="movieTwo">
+   <div class="movieResult">
        <h2>Movie Two Title</h2>
        <img src="http://images.hellogiggles.com/uploads/2015/02/20/picture-of-pusheen-cat-unicorn-photo.gif">
        <p>Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
          Blog post text.Blog post text. Blog post text. Blog post text. Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text. </p>
+         B </p>
+         <br>
+         <button type="submit" class="clsButton">Add To Favorites</button>
    </div>
    
-   <div class="movieThree">
+   <div class="movieResult">
        <h2>Movie Three Title</h2>
        <img src="http://images.hellogiggles.com/uploads/2015/02/20/picture-of-pusheen-cat-unicorn-photo.gif">
        <p>Blog post text. Blog post text.Blog post   text. Blog post text.Blog post text.
-         Blog post text.Blog post text. Blog post text. Blog post text. Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text.Blog post text. Blog post text.Blog post text.
-         Blog post text. Blog post text. </p>
+         Blog post text.Blog post text. Blog post text. Blog post text. Blog </p>
+         <br>
+         <button type="submit" class="clsButton">Add To Favorites</button>
    </div>
      </body>
 </html>

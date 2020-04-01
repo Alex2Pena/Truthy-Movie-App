@@ -30,6 +30,21 @@ app.get('/', (request,response) => {
   
 });
 
+
+app.get('/about', (request,response) => {
+  response.render('./about');
+});
+
+app.get('/favorites', (request,response) => {
+  response.render('./favorites');
+});
+
+app.get('/search', (request, response)=>{
+  console.log(request.query.search)
+})
+
+
+
 // app.get('/search', (request, response)=>{
 //   //console.log(request.query.search);
 //   let thingTheyAreSearchingFor = request.query.search;
@@ -50,6 +65,7 @@ app.get('/', (request,response) => {
 //     console.log(title)
 //     return thingTheyAreSearchingFor;
 // });
+
 
 // const request = require('request');
 
