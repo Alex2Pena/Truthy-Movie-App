@@ -28,6 +28,27 @@ app.use(express.urlencoded({extended:true})); // Body parser
 //   response.render('./index');
   
   
+});
+
+
+app.get('/about', (request,response) => {
+  response.render('./about');
+});
+
+app.get('/favorites', (request,response) => {
+  response.render('./favorites');
+});
+
+app.get('/search', (request, response)=>{
+  console.log(request.query.search)
+})
+
+
+
+// app.get('/search', (request, response)=>{
+//   //console.log(request.query.search);
+//   let thingTheyAreSearchingFor = request.query.search;
+//   return thingTheyAreSearchingFor;
 // });
 
 app.get('/search', handleSearch);
