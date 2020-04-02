@@ -55,13 +55,13 @@ function renderFavorites (request, response){
     })}
 
 function handleFavorites (request, response){
-// console.log('favorites request', request.body);
+console.log('favorites request', request.body);
 
-  let{name, picture, locations, providericon} = request.body;
-  let sql = 'INSERT INTO items (name, picture, locations, providericon) VALUES ($1, $2, $3, $4);';
-  let safeValues = [name, picture, locations, providericon];
-
-  client.query(sql, safeValues)
+    let{name, picture, locations, comments} = request.body;
+    let sql = 'INSERT INTO items (name, picture, locations, comments) VALUES ($1, $2, $3, $4);';
+    let safeValues = [name, picture, locations, comments];
+    
+    client.query(sql, safeValues)
     // .then(response => {
     //     // let id = results.rows.id;
     //     response.render('./favorites');
@@ -103,13 +103,14 @@ function Video(obj){
   this.locations = obj.locations.map((value) => {
     return value.display_name;
   })
-  this.providericon = obj.locations.map((value) => {
+  // this.providericon = obj.locations.map((value) => {
     // console.log("inside .map", value.icon);
-    return value.icon;
-  })
-  // console.log('this.providericon', this.providericon);
-  videoArray.push(this);
-}
+    // return value.icon;
+// })
+  this.comments = '';
+// console.log('this.providericon', this.providericon);
+videoArray.push(this);
+};
 
 client.connect()
   .then(() => {
