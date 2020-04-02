@@ -33,26 +33,26 @@ app.post('/favorites', handleFavorites);
 app.post('/deleteFavorites', deleteFavorites);
 
 function deleteFavorites (request, response) {
-  console.log("id", request.body.id);
-  
+  console.log('id', request.body.id);
+
   let id = request.body.id;
   let sql = 'DELETE FROM items WHERE id=$1;';
   let safeValues = [id];
 
   client.query(sql, safeValues)
-      .then(() => {
-          response.redirect('/favorites');
-      })
+    .then(() => {
+      response.redirect('/favorites');
+    })
 }
 
 function renderFavorites (request, response){
-    let sql = 'Select * FROM items;';
-    client.query(sql)
+  let sql = 'Select * FROM items;';
+  client.query(sql)
     .then(res => {
       let videos = res.rows;
       // console.log('videos',videos);
-        response.render('./favorites', ({apples : videos}));
-})};
+      response.render('./favorites', ({apples : videos}));
+    })}
 
 function handleFavorites (request, response){
 console.log('favorites request', request.body);
@@ -67,7 +67,7 @@ console.log('favorites request', request.body);
     //     response.render('./favorites');
     .then(() => {
       response.redirect('/favorites');
-  })
+    })
     // })
 }
 
@@ -78,7 +78,7 @@ var videoArray = [];
 
 function handleSearch (req, res){
   videoArray = [];
-   let xyz = req.query.search
+  let xyz = req.query.search
   const options = {
     method: 'GET',
     //   type: 'JSON',
@@ -86,6 +86,7 @@ function handleSearch (req, res){
     qs: {term: `${xyz}`, country: 'us'},
     headers: {
       'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
+
       'x-rapidapi-key': `${process.env.UTELY_API_KEY}`}};
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
@@ -95,11 +96,12 @@ function handleSearch (req, res){
           res.render('./index', {bananas: videoArray})}
 )};
 
+
 function Video(obj){
   this.name = obj.name;
   this.picture = obj.picture;
   this.locations = obj.locations.map((value) => {
-      return value.display_name;
+    return value.display_name;
   })
   // this.providericon = obj.locations.map((value) => {
     // console.log("inside .map", value.icon);
@@ -111,8 +113,8 @@ videoArray.push(this);
 };
 
 client.connect()
-    .then(() => {
-  app.listen(PORT, () => {
-    console.log(`listening on ${PORT}`)
-  })
-});
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`listening on ${PORT}`)
+    })
+  });
