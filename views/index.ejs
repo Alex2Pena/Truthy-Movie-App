@@ -6,26 +6,31 @@
   </head>
   <body>
     <%- include('./layout/header.ejs') %>
- 
+<section id = "mainPage">
 <form action="/search" method="get">
-  <input class = "grid-item" type="text" name="search" placeholder="Enter a title or author" required>
+  <input class = "grid-item" type="text" name="search" placeholder="Enter Movie or Show Title" required>
 </form>
-<ul>
+<div class = "displayArea">
+<ul id = "results">
   <% bananas.forEach(result => { %>
       <form action="/favorites" method="post">
-          <img src="<%= result.picture %>" />
-          <li>Title: <%= result.name %></li>
-          <li>Available On: <%= result.locations %></li>
+          <img src="<%= result.picture %>" class = "blogPhoto"/>
+          <li id = "blogPost">Title: <%= result.name %></li>
+          <li id = "blogPost">Available On: <%= result.locations %></li>
           <li></li><input class = "grid-item" type="text" name="comments" placeholder="your notes"></li>
+          <button>Add to my favorites</button>
+          
                    
           <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
           <input type="hidden" name="locations" value="<%= result.locations %>" />
           
  
-      <button>Add to my favorites</button>
+      
       </form>
   <% }) %>
 </ul>
+</div>
+</section> 
 </body>
 </html>
