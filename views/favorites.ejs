@@ -14,9 +14,10 @@
       <img src="<%= result.picture %>" />
       <li><%= result.name %></li>
       <li><%= result.locations %></li>
-      <% apples.forEach(icon => { %>
-      <li><img src="<%= icon.providerIcon %>" /></li>
-      <% }) %>
+      <li><%= result.comments %></li>
+      <!-- <% apples.forEach(icon => { %>
+      <li><img src="<%= icon.providericon %>" /></li>
+      <% }) %> -->
 
       <input type="hidden" name="picture" value="<%= result.picture %>" />
       <input type="hidden" name="name" value="<%= result.name %>" />

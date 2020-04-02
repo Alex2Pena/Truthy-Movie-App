@@ -16,14 +16,12 @@
           <img src="<%= result.picture %>" />
           <li><%= result.name %></li>
           <li><%= result.locations %></li>
-          <% bananas.forEach(icon => { %>
-            <!-- <%= icon.providerIcon %> -->
-            <li><img src= "<%= icon.providerIcon %>" /></li>
-            <% }) %>
-             
+          <li></li><input class = "grid-item" type="text" name="comments" placeholder="your notes" required></li>
+                   
           <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
           <input type="hidden" name="locations" value="<%= result.locations %>" />
+          
  
       <button>Add to my favorites</button>
       </form>

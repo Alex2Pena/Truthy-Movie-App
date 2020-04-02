@@ -55,11 +55,11 @@ function renderFavorites (request, response){
 })};
 
 function handleFavorites (request, response){
-// console.log('favorites request', request.body);
+console.log('favorites request', request.body);
 
-    let{name, picture, locations, providerIcon} = request.body;
-    let sql = 'INSERT INTO items (name, picture, locations, providerIcon) VALUES ($1, $2, $3, $4);';
-    let safeValues = [name, picture, locations, providerIcon];
+    let{name, picture, locations, comments} = request.body;
+    let sql = 'INSERT INTO items (name, picture, locations, comments) VALUES ($1, $2, $3, $4);';
+    let safeValues = [name, picture, locations, comments];
     
     client.query(sql, safeValues)
     // .then(response => {
@@ -101,11 +101,12 @@ function Video(obj){
   this.locations = obj.locations.map((value) => {
       return value.display_name;
   })
-  this.providerIcon = obj.locations.map((value) => {
+  // this.providericon = obj.locations.map((value) => {
     // console.log("inside .map", value.icon);
-    return value.icon;
-})
-// console.log('this.providerIcon', this.providerIcon);
+    // return value.icon;
+// })
+  this.comments = '';
+// console.log('this.providericon', this.providericon);
 videoArray.push(this);
 };
 
