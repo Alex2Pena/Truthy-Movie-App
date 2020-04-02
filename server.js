@@ -86,7 +86,7 @@ function handleSearch (req, res){
     qs: {term: `${xyz}`, country: 'us'},
     headers: {
       'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
-      'x-rapidapi-key': '38e058ddb8msh0ab4bb9902ac5b2p1d7aa3jsn10ae3807ccee'}};
+      'x-rapidapi-key': `${process.env.UTELY_API_KEY}`}};
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
           let allResults = JSON.parse(response.body);
