@@ -1,56 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Truthy Video</title>
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/layouts.css">
-    <link rel="stylesheet" href="./css/modules.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truthy Video</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/base.css">
+  <link rel="stylesheet" href="./css/layouts.css">
+  <link rel="stylesheet" href="./css/modules.css">
 
 </head>
+
 <body>
 
-    <h1>Truthy Video</h1>
-   
-   <div class="navBar">
-   <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="about">About Us</a></li>
-    <li><a href="favorites">Favorites</a></li>
-   </ul>
- </div>
+  <h1>Truthy Video</h1>
 
- <ul>
-  <% apples.forEach(result => { %>
-    <form action="<%=`/deleteFavorites/${result.id}?_method=PUT`%>" method="POST">
-      <!-- <form action="/favorites" method="post"> -->
-          <img src="<%= result.picture %>" />
-          <li><%= result.name %></li>
-          <li><%= result.locations %></li>
-          <% apples.forEach(icon => { %>
-            <!-- <%= icon.providerIcon %> -->
-            <li><img src= "<%= icon.providerIcon %>" /></li>
-            
-            <% result.id %>
+  <div class="navBar">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="about">About Us</a></li>
+      <li><a href="favorites">Favorites</a></li>
+    </ul>
+  </div>
 
-            <% }) %>
-            
-             
-          <input type="hidden" name="picture" value="<%= result.picture %>" />  
-          <input type="hidden" name="name" value="<%= result.name %>" />
-          <input type="hidden" name="locations" value="<%= result.locations %>" />
-          <input type="hidden" name="id" value="<%= result.id %>" />
+  <ul>
+    <% apples.forEach(result => { %>
+    <form action="/favorites" method="get">
+      <img src="<%= result.picture %>" />
+      <li><%= result.name %></li>
+      <li><%= result.locations %></li>
+      <% apples.forEach(icon => { %>
+      <li><img src="<%= icon.providerIcon %>" /></li>
+      <% }) %>
 
-          <form action="/deleteFavorites" method="get">
-            <input type="hidden" name="id" value="<%= result.id %>"/>
+      <input type="hidden" name="picture" value="<%= result.picture %>" />
+      <input type="hidden" name="name" value="<%= result.name %>" />
+      <input type="hidden" name="locations" value="<%= result.locations %>" />
+      <input type="hidden" name="id" value="<%= result.id %>" />
+     
+    </form>
+
+    <form action="/deleteFavorites" method="post">
+      <input type="hidden" name="id" value="<%= result.id %>" />
       <button type="submit" class="clsButton">Delete from my favorites</button>
-      </form>
-  <% }) %>
-</ul>
+    </form>
+    <% }) %>
+  </ul>
 
 
 
 
- </html>
+</html>

@@ -1,4 +1,3 @@
-
 'use strict'
 
 // libraries
@@ -29,55 +28,31 @@ app.get('/about', (request,response) => {response.render('./about');});
 // app.get('/favorites', (request,response) => {response.render('./favorites');});
 app.get('/favorites', renderFavorites);
 app.get('/search', handleSearch);
+app.post('/favorites', handleFavorites);
 
-app.get('/deleteFavorites/:result.id', deleteFavorites);
+app.post('/deleteFavorites', deleteFavorites);
 
 function deleteFavorites (request, response) {
-// get id of the button that was selected
-// take id/name into sql and delete all with that name
-// re-render favorites page
-console.log(request);
-  console.log("params id", request.params.result.id);
-  let {title, authors, description, image, isbn} = request.body;
-  let id = request.params.video_id;
-
-  let sql = 'UPDATE books SET title=$1, authors=$2, description=$3, image=$4, isbn=$5 WHERE id=$6;';
-
-  let safeValues = [title, authors, description, image, isbn];
+  console.log("id", request.body.id);
+  
+  let id = request.body.id;
+  let sql = 'DELETE FROM items WHERE id=$1;';
+  let safeValues = [id];
 
   client.query(sql, safeValues)
       .then(() => {
-          response.redirect('/');
+          response.redirect('/favorites');
       })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function renderFavorites (request, response){
-  
     let sql = 'Select * FROM items;';
-    
     client.query(sql)
     .then(res => {
       let videos = res.rows;
       // console.log('videos',videos);
         response.render('./favorites', ({apples : videos}));
 })};
-
-app.post('/favorites', handleFavorites);
 
 function handleFavorites (request, response){
 // console.log('favorites request', request.body);
@@ -90,22 +65,20 @@ function handleFavorites (request, response){
     // .then(response => {
     //     // let id = results.rows.id;
     //     response.render('./favorites');
-      
+    .then(() => {
+      response.redirect('/favorites');
+  })
     // })
 }
 
 
 //API Request
 const request = require('request');
-
 var videoArray = [];
-console.log(videoArray);
 
 function handleSearch (req, res){
   videoArray = [];
    let xyz = req.query.search
-  // console.log('xyz is', xyz);
-  
   const options = {
     method: 'GET',
     //   type: 'JSON',
@@ -114,17 +87,12 @@ function handleSearch (req, res){
     headers: {
       'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
       'x-rapidapi-key': '38e058ddb8msh0ab4bb9902ac5b2p1d7aa3jsn10ae3807ccee'}};
-  // console.log("options is", options);
-  
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
-          
           let allResults = JSON.parse(response.body);
           allResults.results.forEach(result=>{
-            new Video(result);
-          });
-          res.render('./index', {bananas: videoArray})
-  }
+            new Video(result);});
+          res.render('./index', {bananas: videoArray})}
 )};
 
 function Video(obj){
@@ -141,7 +109,6 @@ function Video(obj){
 videoArray.push(this);
 };
 
-// Turn everything on
 client.connect()
     .then(() => {
   app.listen(PORT, () => {
