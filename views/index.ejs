@@ -26,7 +26,7 @@
 </form>
 <ul>
   <% bananas.forEach(result => { %>
-      <!-- <form action="/favorites" method="post"> -->
+      <form action="/favorites" method="post">
           <img src="<%= result.picture %>" />
           <li><%= result.name %></li>
           <li><%= result.locations %></li>
@@ -34,10 +34,11 @@
             <!-- <%= icon.providerIcon %> -->
             <li><img src= "<%= icon.providerIcon %>" /></li>
             <% }) %>
-        
-
+             
+          <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
-          <!-- <input type="hidden" name="thumbnail_url" value="<%= result.thumbnail_url %>" /> -->
+          <input type="hidden" name="locations" value="<%= result.locations %>" />
+ 
       <button>Add to my favorites</button>
       </form>
   <% }) %>

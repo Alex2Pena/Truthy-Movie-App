@@ -3,7 +3,7 @@
 
 // libraries
 require('dotenv').config();
-// const pg = require('pg');
+const pg = require('pg');
 const cors = require('cors');
 const express = require('express');
 const superagent = require('superagent');
@@ -21,24 +21,90 @@ app.use(express.static('./public')); // Serves our files from public
 app.use(express.urlencoded({extended:true})); // Body parser
 
 // setup PG
-//const client = new pg.Client(process.env.DATABASE_URL);
-//client.on('error', err => console.error(err));
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', err => console.error(err));
 
 app.get('/', handleSearch);
 app.get('/about', (request,response) => {response.render('./about');});
-app.get('/favorites', (request,response) => {response.render('./favorites');});
+// app.get('/favorites', (request,response) => {response.render('./favorites');});
+app.get('/favorites', renderFavorites);
 app.get('/search', handleSearch);
+
+app.get('/deleteFavorites/:result.id', deleteFavorites);
+
+function deleteFavorites (request, response) {
+// get id of the button that was selected
+// take id/name into sql and delete all with that name
+// re-render favorites page
+console.log(request);
+  console.log("params id", request.params.result.id);
+  let {title, authors, description, image, isbn} = request.body;
+  let id = request.params.video_id;
+
+  let sql = 'UPDATE books SET title=$1, authors=$2, description=$3, image=$4, isbn=$5 WHERE id=$6;';
+
+  let safeValues = [title, authors, description, image, isbn];
+
+  client.query(sql, safeValues)
+      .then(() => {
+          response.redirect('/');
+      })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function renderFavorites (request, response){
+  
+    let sql = 'Select * FROM items;';
+    
+    client.query(sql)
+    .then(res => {
+      let videos = res.rows;
+      // console.log('videos',videos);
+        response.render('./favorites', ({apples : videos}));
+})};
+
+app.post('/favorites', handleFavorites);
+
+function handleFavorites (request, response){
+// console.log('favorites request', request.body);
+
+    let{name, picture, locations, providerIcon} = request.body;
+    let sql = 'INSERT INTO items (name, picture, locations, providerIcon) VALUES ($1, $2, $3, $4);';
+    let safeValues = [name, picture, locations, providerIcon];
+    
+    client.query(sql, safeValues)
+    // .then(response => {
+    //     // let id = results.rows.id;
+    //     response.render('./favorites');
+      
+    // })
+}
 
 
 //API Request
 const request = require('request');
 
 var videoArray = [];
+console.log(videoArray);
 
 function handleSearch (req, res){
   videoArray = [];
    let xyz = req.query.search
-  console.log('xyz is', xyz);
+  // console.log('xyz is', xyz);
   
   const options = {
     method: 'GET',
@@ -47,10 +113,8 @@ function handleSearch (req, res){
     qs: {term: `${xyz}`, country: 'us'},
     headers: {
       'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
-      'x-rapidapi-key': '38e058ddb8msh0ab4bb9902ac5b2p1d7aa3jsn10ae3807ccee'}
-  };
-  
-  console.log("options is", options);
+      'x-rapidapi-key': '38e058ddb8msh0ab4bb9902ac5b2p1d7aa3jsn10ae3807ccee'}};
+  // console.log("options is", options);
   
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
@@ -61,103 +125,26 @@ function handleSearch (req, res){
           });
           res.render('./index', {bananas: videoArray})
   }
-  
 )};
 
 function Video(obj){
   this.name = obj.name;
   this.picture = obj.picture;
-  // this.locations = obj.locations[0].display_name
-  
-  // this.locations = function abc = (obj.locations){
-  //     for (let i =0; i < obj.locations.length; i++){
-  //         let abc = [];
-  //         abc.push(arr[i].display_name)
-  //         console.log(abc)
-  //       }
-  //       return abc
-  //     }
- 
   this.locations = obj.locations.map((value) => {
       return value.display_name;
   })
-  
-  
-this.providerIcon = obj.locations.map((value) => {
+  this.providerIcon = obj.locations.map((value) => {
     // console.log("inside .map", value.icon);
     return value.icon;
 })
-console.log('this.providerIcon', this.providerIcon);
-  
-  
-  // this.providerIcon = obj.locations[0].icon;
-this.urlProvider = obj.locations[0].url
-this.favorite = false;
+// console.log('this.providerIcon', this.providerIcon);
 videoArray.push(this);
-}
+};
 
-
-
-
-
-
-
-  locations:
-  [ { icon:
-       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/GooglePlayIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-      display_name: 'Google Play',
-      name: 'GooglePlayIVAUS',
-      id: '5d8260b128fbcd0052aed197',
-      url:
-       'https://play.google.com/store/movies/details/Rambo_First_Blood_II?gl=US&hl=en&id=Vt4PyVlN5Ys' },
-    { icon:
-       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/iTunesIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-      display_name: 'iTunes',
-      name: 'iTunesIVAUS',
-      id: '5d80a9a5d51bef861d3740d3',
-      url:
-       'https://itunes.apple.com/us/movie/rambo-first-blood-part-ii/id552398029' },
-    { icon:
-       'https://utellyassets7.imgix.net/locations_icons/utelly/black_new/AmazonInstantVideoIVAUS.png?w=92&auto=compress&app_version=f9bcb59f-f5b5-467d-bf1a-c16e9ed1ff81_eww2020-04-01',
-      display_name: 'Amazon Instant Video',
-      name: 'AmazonInstantVideoIVAUS',
-      id: '5d82609332ac2f0051962fe6',
-      url:
-       'https://www.amazon.com/gp/product/B07XJ25DPT?creativeASIN=B07XJ25DPT&ie=UTF8&linkCode=xm2&tag=utellycom00-21' } ]
-    
-    
-      //  function xyz(obj.locations) {
-      //   for (let i =0; i < obj.locations.length; i++){
-      //       let abc = [];
-      //       abc.push(arr[i].display_name)
-      //       console.log(abc)
-      //     }
-      //     return abc
-      //   }
-    //  this.locations = xyz(obj.locations)
-    
-    
-    
-  
 // Turn everything on
-//client.connect()
-//     .then(() => {
+client.connect()
+    .then(() => {
   app.listen(PORT, () => {
     console.log(`listening on ${PORT}`)
-  });
-
-
-
-
-  // app.post('/search', (request, response) => {//recives searches from front end
-//   console.log(request.body);
-//   let thingTheyAreSearchingFor = request.body;
-
-//   // defining the first result
-//   //console.log(thingTheyAreSearchingFor)
-//   let titleArray = videoArray.forEach(title => {
-  //     return new Video(title);
-  //   })
-  //     console.log(title)
-  //     return thingTheyAreSearchingFor;
-  // });
+  })
+});
