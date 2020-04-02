@@ -141,7 +141,6 @@ function Video(obj){
 videoArray.push(this);
 };
 
-// Turn everything on
 client.connect()
     .then(() => {
   app.listen(PORT, () => {
