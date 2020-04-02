@@ -24,20 +24,28 @@
 
  <ul>
   <% apples.forEach(result => { %>
-      <form action="/deleteFavorites" method="post">
+    <form action="<%=`/deleteFavorites/${result.id}?_method=PUT`%>" method="POST">
+      <!-- <form action="/favorites" method="post"> -->
           <img src="<%= result.picture %>" />
           <li><%= result.name %></li>
           <li><%= result.locations %></li>
           <% apples.forEach(icon => { %>
             <!-- <%= icon.providerIcon %> -->
             <li><img src= "<%= icon.providerIcon %>" /></li>
+            
+            <% result.id %>
+
             <% }) %>
+            
              
           <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
           <input type="hidden" name="locations" value="<%= result.locations %>" />
- 
-      <button>Delete from my favorites</button>
+          <input type="hidden" name="id" value="<%= result.id %>" />
+
+          <form action="/deleteFavorites" method="get">
+            <input type="hidden" name="id" value="<%= result.id %>"/>
+      <button type="submit" class="clsButton">Delete from my favorites</button>
       </form>
   <% }) %>
 </ul>

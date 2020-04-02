@@ -30,13 +30,39 @@ app.get('/about', (request,response) => {response.render('./about');});
 app.get('/favorites', renderFavorites);
 app.get('/search', handleSearch);
 
-app.get.('/deleteFavorites', deleteFavorites);
+app.get('/deleteFavorites/:result.id', deleteFavorites);
 
 function deleteFavorites (request, response) {
 // get id of the button that was selected
 // take id/name into sql and delete all with that name
 // re-render favorites page
+console.log(request);
+  console.log("params id", request.params.result.id);
+  let {title, authors, description, image, isbn} = request.body;
+  let id = request.params.video_id;
+
+  let sql = 'UPDATE books SET title=$1, authors=$2, description=$3, image=$4, isbn=$5 WHERE id=$6;';
+
+  let safeValues = [title, authors, description, image, isbn];
+
+  client.query(sql, safeValues)
+      .then(() => {
+          response.redirect('/');
+      })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -47,7 +73,7 @@ function renderFavorites (request, response){
     client.query(sql)
     .then(res => {
       let videos = res.rows;
-      console.log('videos',videos);
+      // console.log('videos',videos);
         response.render('./favorites', ({apples : videos}));
 })};
 
