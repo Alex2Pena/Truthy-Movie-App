@@ -1,28 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Truthy Video</title>
-  <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/base.css">
-  <link rel="stylesheet" href="./css/layouts.css">
-  <link rel="stylesheet" href="./css/modules.css">
-
-</head>
-
-<body>
-
-  <h1>Truthy Video</h1>
-
-  <div class="navBar">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="about">About Us</a></li>
-      <li><a href="favorites">Favorites</a></li>
-    </ul>
-  </div>
+  <head>
+    <%- include('./layout/head.ejs') %>
+  
+  </head>
+  <body>
+    <%- include('./layout/header.ejs') %>
 
   <ul>
     <% apples.forEach(result => { %>
@@ -31,7 +15,7 @@
       <li><%= result.name %></li>
       <li><%= result.locations %></li>
       <% apples.forEach(icon => { %>
-      <li><img src="<%= icon.providerIcon %>" /></li>
+      <li><img src="<%= icon.providericon %>" /></li>
       <% }) %>
 
       <input type="hidden" name="picture" value="<%= result.picture %>" />
