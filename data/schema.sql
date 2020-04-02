@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS items; 
+
 CREATE TABLE items (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -7,4 +7,4 @@ CREATE TABLE items (
     providerIcon text
 );
 
-SELECT * FROM items;
+
