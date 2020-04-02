@@ -33,11 +33,6 @@
  - In your own terminal, in the location of your pleasure, type "git clone https://github.com/Alex2Pena/Truthy-Movie-App"
  - In your terminal, enter "cd 301-final-project"
  - In your terminal, enter "code ."
- - In your terminal, enter "npm init y"
- - In your terminal, enter "npm i -S"
- - In your terminal, enter "pg start"
- - In your terminal, enter "cd data"
- - In your terminal, enter "psql -f schema.sql -d item"
  - create a ".env" file
  - in the ".env" file, enter "PORT=3000"
  - In the ".env" file, enter "UTELY_API_KEY=38e058ddb8msh0ab4bb9902ac5b2p1d7aa3jsn10ae3807ccee"
@@ -45,11 +40,16 @@
  For Windows Users:
  - in the ".env" file, enter DATABASE_URL=postgres://
  - for windows users, immediately following the previous command, add your user name and password, seperated with a colon
- - immediately following add "@localhost:5432/item"
+ - immediately following add "@localhost:5432/titles"
 
  For Mac Users:
- - something about brew?
-
+ - in the ".env" file, enter: postgres://localhost:5432/titles`
+ 
+ - In your terminal, enter "npm init y"
+ - In your terminal, enter "npm i -S"
+ - In your terminal, enter "sudo service postgresql start"
+ - In your terminal, enter "cd data"
+ - In your terminal, enter "psql -f schema.sql -d item"
 
  - In your terminal, enter "nodemon"
  - In your web browser, enter "http://localhost:3000/" in the url.
