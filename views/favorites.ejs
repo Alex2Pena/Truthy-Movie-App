@@ -12,9 +12,9 @@
     <% apples.forEach(result => { %>
     <form action="/favorites" method="get">
       <img src="<%= result.picture %>" />
-      <li><%= result.name %></li>
-      <li><%= result.locations %></li>
-      <li><%= result.comments %></li>
+      <li>Title: <%= result.name %></li>
+      <li>Available On: <%= result.locations %></li>
+      <li>Your comments: <%= result.comments %></li>
       <!-- <% apples.forEach(icon => { %>
       <li><img src="<%= icon.providericon %>" /></li>
       <% }) %> -->
