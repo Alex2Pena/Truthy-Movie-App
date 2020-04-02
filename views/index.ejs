@@ -14,9 +14,9 @@
   <% bananas.forEach(result => { %>
       <form action="/favorites" method="post">
           <img src="<%= result.picture %>" />
-          <li><%= result.name %></li>
-          <li><%= result.locations %></li>
-          <li></li><input class = "grid-item" type="text" name="comments" placeholder="your notes" required></li>
+          <li>Title: <%= result.name %></li>
+          <li>Available On: <%= result.locations %></li>
+          <li></li><input class = "grid-item" type="text" name="comments" placeholder="your notes"></li>
                    
           <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
