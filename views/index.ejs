@@ -17,16 +17,13 @@
           <img src="<%= result.picture %>" class = "blogPhoto"/>
           <li id = "blogPost">Title: <%= result.name %></li>
           <li id = "blogPost">Available On: <%= result.locations %></li>
-          <li></li><input class = "grid-item" type="text" name="comments" placeholder="your notes"></li>
+          <li><input class = "grid-item" type="text" name="comments" placeholder="your notes"></li>
           <button>Add to my favorites</button>
-          
                    
           <input type="hidden" name="picture" value="<%= result.picture %>" />  
           <input type="hidden" name="name" value="<%= result.name %>" />
           <input type="hidden" name="locations" value="<%= result.locations %>" />
           
- 
-      
       </form>
   <% }) %>
 </ul>
