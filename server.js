@@ -29,12 +29,29 @@ app.get('/about', (request,response) => {response.render('./about');});
 app.get('/favorites', renderFavorites);
 app.get('/search', handleSearch);
 app.post('/favorites', handleFavorites);
-
+app.post('/updateComments', updateComments);
+app.get('alex', renderFavorites);
+app.put('/alex/:result_id', alexFunction);
 app.post('/deleteFavorites', deleteFavorites);
 
-function deleteFavorites (request, response) {
-  console.log('id', request.body.id);
 
+
+function alexFunction(request, response){
+  console.log(request.body);
+  let comments = request.body.comments;
+  let id = request.body.id;
+  console.log('Updating this id',id);
+  let sql = 'UPDATE items SET comments=$1 where id=$2;';
+  let safeValues = [comments, id];
+  client.query(sql, safeValues)
+    .then(res => {
+      let videos = res.rows;
+      console.log('videos',videos);
+      response.render('./favorites');
+    })
+}
+
+function deleteFavorites (request, response) {
   let id = request.body.id;
   let sql = 'DELETE FROM items WHERE id=$1;';
   let safeValues = [id];
@@ -55,20 +72,29 @@ function renderFavorites (request, response){
     })}
 
 function handleFavorites (request, response){
-console.log('favorites request', request.body);
+  // console.log('favorites request', request.body);
 
-    let{name, picture, locations, comments} = request.body;
-    let sql = 'INSERT INTO items (name, picture, locations, comments) VALUES ($1, $2, $3, $4);';
-    let safeValues = [name, picture, locations, comments];
-    
-    client.query(sql, safeValues)
+  let{name, picture, locations, comments} = request.body;
+  let sql = 'INSERT INTO items (name, picture, locations, comments) VALUES ($1, $2, $3, $4);';
+  let safeValues = [name, picture, locations, comments];
+
+  client.query(sql, safeValues)
     // .then(response => {
     //     // let id = results.rows.id;
     //     response.render('./favorites');
     .then(() => {
       response.redirect('/favorites');
     })
-    // })
+}
+
+function updateComments(request, response){
+  let id = request.body.id;
+  let sql = 'SELECT * FROM items WHERE id=$1;';
+  let safeValues = [id];
+  client.query(sql, safeValues)
+    .then((results) => {
+      response.render('./edit', ({myEdit : results.rows}));
+    })
 }
 
 
@@ -88,13 +114,13 @@ function handleSearch (req, res){
       'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',
 
       'x-rapidapi-key': `${process.env.UTELY_API_KEY}`}};
-        request(options, function (error, response, body) {
-          if (error) throw new Error(error);
-          let allResults = JSON.parse(response.body);
-          allResults.results.forEach(result=>{
-            new Video(result);});
-          res.render('./index', {bananas: videoArray})}
-)};
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
+    let allResults = JSON.parse(response.body);
+    allResults.results.forEach(result=>{
+      new Video(result);});
+    res.render('./index', {bananas: videoArray})}
+  )}
 
 
 function Video(obj){
@@ -104,13 +130,13 @@ function Video(obj){
     return value.display_name;
   })
   // this.providericon = obj.locations.map((value) => {
-    // console.log("inside .map", value.icon);
-    // return value.icon;
-// })
+  // console.log("inside .map", value.icon);
+  // return value.icon;
+  // })
   this.comments = '';
-// console.log('this.providericon', this.providericon);
-videoArray.push(this);
-};
+  // console.log('this.providericon', this.providericon);
+  videoArray.push(this);
+}
 
 client.connect()
   .then(() => {
