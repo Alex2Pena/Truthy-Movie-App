@@ -10,24 +10,40 @@
     <div class = "displayArea">
     <ul id = "results">
     <% apples.forEach(result => { %>
+    <div id = "testing">
     <form action="/favorites" method="get">
       <img src="<%= result.picture %>" class = "blogPhoto"/>
       <li id = "blogPost">Title: <%= result.name %></li>
       <li id = "blogPost">Available On: <%= result.locations %></li>
       <li id = "blogPost">Your comments: <%= result.comments %></li>
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 91d3c05ca2aa44b5d2ba19bfa09a62da26485f83
       <input type="hidden" name="picture" value="<%= result.picture %>" />
       <input type="hidden" name="name" value="<%= result.name %>" />
       <input type="hidden" name="locations" value="<%= result.locations %>" />
       <input type="hidden" name="id" value="<%= result.id %>" />
+<<<<<<< HEAD
     </form>
     <form action="/updateComments" method="post">
       <input type="hidden" name="id" value="<%= result.id %>" />
       <button type="submit">Update Comment</button>
     </form>
+=======
+     
+    </form>
+      
+>>>>>>> 91d3c05ca2aa44b5d2ba19bfa09a62da26485f83
     <form action="/deleteFavorites" method="post">
       <input type="hidden" name="id" value="<%= result.id %>" />
       <button type="submit">Delete from my favorites</button>
     </form>
+<<<<<<< HEAD
+=======
+  </div>
+
+>>>>>>> 91d3c05ca2aa44b5d2ba19bfa09a62da26485f83
     <% }) %>
   </ul>
 </div>
