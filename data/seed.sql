@@ -1,1 +1,0 @@
-INSERT INTO items (picture, title, locations, favorites) VALUES ('https://resizing.flixster.com/Bh8EoAPa447vGWVkt8sw5Gt-QHk=/206x305/v1.bTsxMTE3NTY5MjtqOzE4NDQ0OzEyMDA7ODAwOzEyMDA', 'Apollo 13','Netflix, Amazon, iTunes', 'false');
