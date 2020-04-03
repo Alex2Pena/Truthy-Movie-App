@@ -9,6 +9,7 @@
     <div class = "displayArea">
     <ul id = "results">
     <% myEdit.forEach(result => { %>
+    <div>
     <form action="<%=`/alex/${result.id}?_method=PUT`%>" method="post">
       <img src="<%= result.picture %>" class = "blogPhoto"/>
       <li id = "blogPost">Name: <%= result.name %></li>
@@ -24,6 +25,7 @@
       <input type="hidden" name="id" value="<%= result.id %>" />
       <button type="submit">Delete from my favorites</button>
     </form>
+    </div>
     <% }) %>
   </ul>
 </div>
