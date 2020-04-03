@@ -5,7 +5,7 @@ require('dotenv').config();
 const pg = require('pg');
 const cors = require('cors');
 const express = require('express');
-const superagent = require('superagent');
+// const superagent = require('superagent');
 const methodOverride = require('method-override');
 
 // global variables
@@ -44,10 +44,8 @@ function alexFunction(request, response){
   let sql = 'UPDATE items SET comments=$1 where id=$2;';
   let safeValues = [comments, id];
   client.query(sql, safeValues)
-    .then(res => {
-      let videos = res.rows;
-      console.log('videos',videos);
-      response.render('./favorites');
+    .then(() => {
+      response.redirect('/favorites');
     })
 }
 
